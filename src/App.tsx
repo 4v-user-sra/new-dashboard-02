@@ -16,7 +16,7 @@ import {
   Calendar, 
   ChevronDown, 
   Check, 
-  X, 
+  RotateCcw, 
   Car, 
   Home, 
   Building2, 
@@ -48,14 +48,14 @@ const kpiData = {
 };
 
 const segurosStatusData = {
-  emitidos: { count: 1245, percent: 68 },
-  naoEmitidos: { count: 580, percent: 32 },
+  novos: { count: 1245, percent: 68 },
+  renovacao: { count: 580, percent: 32 },
   total: 1825,
 };
 
 const donutStatusData = [
-  { name: 'Seguros Emitidos', value: 1245, color: '#00E396' },
-  { name: 'Seguros Não Emitidos', value: 580, color: '#F39C38' },
+  { name: 'Seguros Novos', value: 1245, color: '#00E396' },
+  { name: 'Seguros em Renovação', value: 580, color: '#FFA502' },
 ];
 
 const produtosDataCol1 = [
@@ -181,7 +181,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#07090E] text-white font-['Plus_Jakarta_Sans'] flex flex-col p-4 sm:p-6 lg:p-8 cursor-none select-none">
+    <div className="w-screen h-screen max-h-screen bg-[#07090E] text-white font-['Plus_Jakarta_Sans'] flex flex-col p-3 sm:p-4 md:p-5 overflow-hidden select-none">
       {/* Custom Cursor */}
       <div
         ref={cursorRef}
@@ -191,17 +191,17 @@ export default function App() {
         <div className="w-1.5 h-1.5 bg-[#F39C38] rounded-full shadow-[0_0_6px_#F39C38]" />
       </div>
 
-      <div className="max-w-7xl mx-auto w-full flex flex-col gap-6">
+      <div className="w-full h-full max-w-[1720px] mx-auto flex flex-col justify-between gap-2.5 sm:gap-3">
         
         {/* --- HEADER --- */}
-        <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <header className="flex items-center justify-between shrink-0 h-10 px-1">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#0F141E] border border-[#1E2638] flex items-center justify-center shadow-lg">
-              <ShieldCheck className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 rounded-lg bg-[#0F141E] border border-[#1E2638] flex items-center justify-center shadow-md">
+              <ShieldCheck className="w-4 h-4 text-[#00E396]" />
             </div>
             <div>
-              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white">Dashboard Comercial</h1>
-              <p className="text-xs sm:text-sm text-white/50">Visão geral do desempenho da sua operação</p>
+              <h1 className="text-base sm:text-lg font-bold tracking-tight text-white leading-tight">Dashboard Comercial</h1>
+              <p className="text-[11px] text-white/50 leading-none">Visão geral do desempenho da sua operação</p>
             </div>
           </div>
 
@@ -209,7 +209,7 @@ export default function App() {
           <div className="relative">
             <button
               onClick={() => setDateRangeOpen(!dateRangeOpen)}
-              className="bg-[#0F141E] hover:bg-[#151C2B] border border-[#1E2638] hover:border-white/20 text-white/80 hover:text-white px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2.5 transition-all shadow-sm cursor-pointer"
+              className="bg-[#0F141E] hover:bg-[#151C2B] border border-[#1E2638] hover:border-white/20 text-white/80 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all shadow-sm cursor-pointer"
             >
               <Calendar className="w-3.5 h-3.5 text-white/60" />
               <span>{selectedDateRange}</span>
@@ -238,39 +238,39 @@ export default function App() {
         </header>
 
         {/* --- ROW 1: CARDS PRINCIPAIS (SEGUROS NOVOS & RENOVAÇÕES) --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="grid grid-cols-2 gap-3 shrink-0 h-[21%] min-h-[120px]">
           
           {/* Card: Seguros Novos */}
-          <SpotlightCard className="p-6 sm:p-7">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-bold text-[#F39C38] tracking-wider uppercase">
+          <SpotlightCard className="p-3.5 sm:p-4 flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-[#F39C38] tracking-wider uppercase">
                 SEGUROS NOVOS
               </span>
-              <span className="bg-[#00E396]/15 border border-[#00E396]/30 text-[#00E396] text-xs font-bold px-2.5 py-0.5 rounded-full">
+              <span className="bg-[#00E396]/15 border border-[#00E396]/30 text-[#00E396] text-[11px] font-bold px-2 py-0.5 rounded-full">
                 {kpiData.segurosNovos.percent}%
               </span>
             </div>
 
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-5">
+            <div className="flex items-end justify-between gap-4 my-auto">
               {/* Highlighted Meta */}
               <div>
-                <span className="text-[11px] font-semibold text-white/50 tracking-wider block mb-1 uppercase">META</span>
-                <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                <span className="text-[10px] font-semibold text-white/50 tracking-wider block uppercase">META</span>
+                <span className="text-2xl lg:text-3xl font-black text-white tracking-tight leading-none">
                   {formatCurrency(kpiData.segurosNovos.meta)}
                 </span>
               </div>
 
               {/* Realizado & Restante */}
-              <div className="flex items-center gap-6 sm:gap-8 text-right">
+              <div className="flex items-center gap-4 sm:gap-6 text-right">
                 <div>
-                  <span className="text-[10px] font-semibold text-white/40 tracking-wider block uppercase mb-1">REALIZADO</span>
-                  <span className="text-sm sm:text-base font-bold text-white tracking-tight">
+                  <span className="text-[9px] font-semibold text-white/40 tracking-wider block uppercase leading-none mb-1">REALIZADO</span>
+                  <span className="text-xs sm:text-sm font-bold text-white tracking-tight leading-none">
                     {formatCurrency(kpiData.segurosNovos.realizado)}
                   </span>
                 </div>
                 <div>
-                  <span className="text-[10px] font-semibold text-white/40 tracking-wider block uppercase mb-1">RESTANTE</span>
-                  <span className="text-sm sm:text-base font-bold text-white/60 tracking-tight">
+                  <span className="text-[9px] font-semibold text-white/40 tracking-wider block uppercase leading-none mb-1">RESTANTE</span>
+                  <span className="text-xs sm:text-sm font-bold text-white/60 tracking-tight leading-none">
                     {formatCurrency(kpiData.segurosNovos.restante)}
                   </span>
                 </div>
@@ -278,45 +278,45 @@ export default function App() {
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full h-3 bg-[#1A2234] rounded-full overflow-hidden relative shadow-inner">
+            <div className="w-full h-2.5 bg-[#1A2234] rounded-full overflow-hidden relative shadow-inner">
               <div
-                className="h-full bg-[#00E396] rounded-full transition-all duration-1000 shadow-[0_0_12px_rgba(0,227,150,0.6)]"
+                className="h-full bg-[#00E396] rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(0,227,150,0.6)]"
                 style={{ width: `${kpiData.segurosNovos.percent}%` }}
               />
             </div>
           </SpotlightCard>
 
           {/* Card: Renovações */}
-          <SpotlightCard className="p-6 sm:p-7">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-bold text-[#F39C38] tracking-wider uppercase">
+          <SpotlightCard className="p-3.5 sm:p-4 flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-[#F39C38] tracking-wider uppercase">
                 RENOVAÇÕES
               </span>
-              <span className="bg-[#00E396]/15 border border-[#00E396]/30 text-[#00E396] text-xs font-bold px-2.5 py-0.5 rounded-full">
+              <span className="bg-[#00E396]/15 border border-[#00E396]/30 text-[#00E396] text-[11px] font-bold px-2 py-0.5 rounded-full">
                 {kpiData.renovacoes.percent}%
               </span>
             </div>
 
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-5">
+            <div className="flex items-end justify-between gap-4 my-auto">
               {/* Highlighted Meta */}
               <div>
-                <span className="text-[11px] font-semibold text-white/50 tracking-wider block mb-1 uppercase">META</span>
-                <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                <span className="text-[10px] font-semibold text-white/50 tracking-wider block uppercase">META</span>
+                <span className="text-2xl lg:text-3xl font-black text-white tracking-tight leading-none">
                   {formatCurrency(kpiData.renovacoes.meta)}
                 </span>
               </div>
 
               {/* Realizado & Restante */}
-              <div className="flex items-center gap-6 sm:gap-8 text-right">
+              <div className="flex items-center gap-4 sm:gap-6 text-right">
                 <div>
-                  <span className="text-[10px] font-semibold text-white/40 tracking-wider block uppercase mb-1">REALIZADO</span>
-                  <span className="text-sm sm:text-base font-bold text-white tracking-tight">
+                  <span className="text-[9px] font-semibold text-white/40 tracking-wider block uppercase leading-none mb-1">REALIZADO</span>
+                  <span className="text-xs sm:text-sm font-bold text-white tracking-tight leading-none">
                     {formatCurrency(kpiData.renovacoes.realizado)}
                   </span>
                 </div>
                 <div>
-                  <span className="text-[10px] font-semibold text-white/40 tracking-wider block uppercase mb-1">RESTANTE</span>
-                  <span className="text-sm sm:text-base font-bold text-white/60 tracking-tight">
+                  <span className="text-[9px] font-semibold text-white/40 tracking-wider block uppercase leading-none mb-1">RESTANTE</span>
+                  <span className="text-xs sm:text-sm font-bold text-white/60 tracking-tight leading-none">
                     {formatCurrency(kpiData.renovacoes.restante)}
                   </span>
                 </div>
@@ -324,9 +324,9 @@ export default function App() {
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full h-3 bg-[#1A2234] rounded-full overflow-hidden relative shadow-inner">
+            <div className="w-full h-2.5 bg-[#1A2234] rounded-full overflow-hidden relative shadow-inner">
               <div
-                className="h-full bg-[#00E396] rounded-full transition-all duration-1000 shadow-[0_0_12px_rgba(0,227,150,0.6)]"
+                className="h-full bg-[#00E396] rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(0,227,150,0.6)]"
                 style={{ width: `${kpiData.renovacoes.percent}%` }}
               />
             </div>
@@ -334,72 +334,72 @@ export default function App() {
 
         </div>
 
-        {/* --- ROW 2: SEGUROS EMITIDOS X NÃO EMITIDOS & DISTRIBUIÇÃO POR PRODUTO --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        {/* --- ROW 2: SEGUROS EMITIDOS & DISTRIBUIÇÃO POR PRODUTO --- */}
+        <div className="grid grid-cols-12 gap-3 flex-1 min-h-[170px]">
           
-          {/* SEGUROS EMITIDOS x SEGUROS NÃO EMITIDOS (Left ~5 cols) */}
-          <SpotlightCard className="lg:col-span-5 p-6 flex flex-col justify-between">
-            <h3 className="text-xs sm:text-sm font-bold text-white/90 uppercase tracking-wider mb-6">
-              SEGUROS EMITIDOS x SEGUROS NÃO EMITIDOS
+          {/* SEGUROS EMITIDOS (Left 5 cols) */}
+          <SpotlightCard className="col-span-5 p-3.5 sm:p-4 flex flex-col justify-between">
+            <h3 className="text-xs font-bold text-white/90 uppercase tracking-wider">
+              SEGUROS EMITIDOS
             </h3>
 
-            <div className="flex items-center justify-between gap-4 my-auto">
+            <div className="flex items-center justify-between gap-2 my-auto">
               
               {/* Left Column Stats */}
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-3.5">
                 
-                {/* Seguros Emitidos */}
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#00E396] flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(0,227,150,0.4)] mt-0.5">
-                    <Check className="w-5 h-5 text-black stroke-[3]" />
+                {/* Seguros Novos */}
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-full bg-[#00E396] flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(0,227,150,0.4)]">
+                    <Check className="w-4 h-4 text-black stroke-[3]" />
                   </div>
                   <div>
-                    <span className="text-[11px] font-bold text-white/70 block uppercase leading-tight">
-                      SEGUROS<br />EMITIDOS
+                    <span className="text-[10px] font-bold text-white/70 block uppercase leading-tight">
+                      SEGUROS NOVOS
                     </span>
-                    <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-2xl font-black text-white tracking-tight">
-                        {formatNumber(segurosStatusData.emitidos.count)}
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="text-lg lg:text-xl font-black text-white tracking-tight">
+                        {formatNumber(segurosStatusData.novos.count)}
+                      </span>
+                      <span className="text-[11px] font-bold text-[#00E396]">
+                        ({segurosStatusData.novos.percent}%)
                       </span>
                     </div>
-                    <span className="text-xs font-bold text-[#00E396]">
-                      {segurosStatusData.emitidos.percent}%
-                    </span>
                   </div>
                 </div>
 
-                {/* Seguros Não Emitidos */}
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#FFA502] flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(255,165,2,0.4)] mt-0.5">
-                    <X className="w-5 h-5 text-black stroke-[3]" />
+                {/* Seguros em Renovação */}
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-full bg-[#FFA502] flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(255,165,2,0.4)]">
+                    <RotateCcw className="w-3.5 h-3.5 text-black stroke-[2.5]" />
                   </div>
                   <div>
-                    <span className="text-[11px] font-bold text-white/70 block uppercase leading-tight">
-                      SEGUROS NÃO<br />EMITIDOS
+                    <span className="text-[10px] font-bold text-white/70 block uppercase leading-tight">
+                      SEGUROS EM RENOVAÇÃO
                     </span>
-                    <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-2xl font-black text-white tracking-tight">
-                        {formatNumber(segurosStatusData.naoEmitidos.count)}
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="text-lg lg:text-xl font-black text-white tracking-tight">
+                        {formatNumber(segurosStatusData.renovacao.count)}
+                      </span>
+                      <span className="text-[11px] font-bold text-[#FFA502]">
+                        ({segurosStatusData.renovacao.percent}%)
                       </span>
                     </div>
-                    <span className="text-xs font-bold text-[#FFA502]">
-                      {segurosStatusData.naoEmitidos.percent}%
-                    </span>
                   </div>
                 </div>
 
               </div>
 
               {/* Right Donut Chart with Center Total */}
-              <div className="relative w-44 h-44 flex items-center justify-center shrink-0">
+              <div className="relative w-32 h-32 lg:w-36 lg:h-36 flex items-center justify-center shrink-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
                       data={donutStatusData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={52}
-                      outerRadius={70}
+                      innerRadius={42}
+                      outerRadius={58}
                       paddingAngle={3}
                       dataKey="value"
                       startAngle={90}
@@ -415,8 +415,8 @@ export default function App() {
 
                 {/* Donut Center Label */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                  <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">TOTAL</span>
-                  <span className="text-lg font-extrabold text-white tracking-tight">
+                  <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest leading-none">TOTAL</span>
+                  <span className="text-sm lg:text-base font-extrabold text-white tracking-tight leading-tight">
                     {formatNumber(segurosStatusData.total)}
                   </span>
                 </div>
@@ -425,27 +425,27 @@ export default function App() {
             </div>
           </SpotlightCard>
 
-          {/* DISTRIBUIÇÃO POR PRODUTO (Right ~7 cols) */}
-          <SpotlightCard className="lg:col-span-7 p-6 flex flex-col justify-between">
-            <h3 className="text-xs sm:text-sm font-bold text-white/90 uppercase tracking-wider mb-6">
+          {/* DISTRIBUIÇÃO POR PRODUTO (Right 7 cols) */}
+          <SpotlightCard className="col-span-7 p-3.5 sm:p-4 flex flex-col justify-between">
+            <h3 className="text-xs font-bold text-white/90 uppercase tracking-wider mb-1">
               DISTRIBUIÇÃO POR PRODUTO
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 my-auto">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-1.5 my-auto">
               
               {/* Column 1 */}
-              <div className="flex flex-col gap-3.5">
+              <div className="flex flex-col gap-1.5">
                 {produtosDataCol1.map((item) => {
                   const Icon = item.icon;
                   return (
-                    <div key={item.name} className="flex items-center justify-between gap-3 text-xs">
-                      <div className="flex items-center gap-2.5 min-w-[110px]">
-                        <Icon className="w-4 h-4 shrink-0" style={{ color: item.color }} />
-                        <span className="font-semibold text-white/80">{item.name}</span>
+                    <div key={item.name} className="flex items-center justify-between gap-2 text-[11px]">
+                      <div className="flex items-center gap-1.5 min-w-[95px]">
+                        <Icon className="w-3.5 h-3.5 shrink-0" style={{ color: item.color }} />
+                        <span className="font-semibold text-white/80 truncate">{item.name}</span>
                       </div>
                       
                       {/* Bar track */}
-                      <div className="flex-1 h-2 bg-[#1A2234] rounded-full overflow-hidden relative">
+                      <div className="flex-1 h-1.5 bg-[#1A2234] rounded-full overflow-hidden relative">
                         <div
                           className="h-full rounded-full transition-all duration-700"
                           style={{
@@ -455,25 +455,25 @@ export default function App() {
                         />
                       </div>
 
-                      <span className="font-bold text-white/80 w-8 text-right">{item.percent}%</span>
+                      <span className="font-bold text-white/80 w-6 text-right text-[10px]">{item.percent}%</span>
                     </div>
                   );
                 })}
               </div>
 
               {/* Column 2 */}
-              <div className="flex flex-col gap-3.5">
+              <div className="flex flex-col gap-1.5">
                 {produtosDataCol2.map((item) => {
                   const Icon = item.icon;
                   return (
-                    <div key={item.name} className="flex items-center justify-between gap-3 text-xs">
-                      <div className="flex items-center gap-2.5 min-w-[110px]">
-                        <Icon className="w-4 h-4 shrink-0" style={{ color: item.color }} />
-                        <span className="font-semibold text-white/80">{item.name}</span>
+                    <div key={item.name} className="flex items-center justify-between gap-2 text-[11px]">
+                      <div className="flex items-center gap-1.5 min-w-[95px]">
+                        <Icon className="w-3.5 h-3.5 shrink-0" style={{ color: item.color }} />
+                        <span className="font-semibold text-white/80 truncate">{item.name}</span>
                       </div>
                       
                       {/* Bar track */}
-                      <div className="flex-1 h-2 bg-[#1A2234] rounded-full overflow-hidden relative">
+                      <div className="flex-1 h-1.5 bg-[#1A2234] rounded-full overflow-hidden relative">
                         <div
                           className="h-full rounded-full transition-all duration-700"
                           style={{
@@ -483,7 +483,7 @@ export default function App() {
                         />
                       </div>
 
-                      <span className="font-bold text-white/80 w-8 text-right">{item.percent}%</span>
+                      <span className="font-bold text-white/80 w-6 text-right text-[10px]">{item.percent}%</span>
                     </div>
                   );
                 })}
@@ -495,34 +495,34 @@ export default function App() {
         </div>
 
         {/* --- ROW 3: EVOLUÇÃO DIÁRIA --- */}
-        <SpotlightCard className="p-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
-            <h3 className="text-xs sm:text-sm font-bold text-white/90 uppercase tracking-wider">
+        <SpotlightCard className="p-3.5 sm:p-4 flex-1 min-h-[160px] flex flex-col justify-between">
+          <div className="flex items-center justify-between gap-2 shrink-0 mb-1">
+            <h3 className="text-xs font-bold text-white/90 uppercase tracking-wider">
               EVOLUÇÃO DIÁRIA
             </h3>
 
             {/* Legend */}
-            <div className="flex items-center gap-5 text-xs font-semibold">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#00E396] shadow-[0_0_6px_#00E396]" />
+            <div className="flex items-center gap-4 text-[11px] font-semibold">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#00E396] shadow-[0_0_6px_#00E396]" />
                 <span className="text-white/80">Seguros Novos</span>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#2F80ED] shadow-[0_0_6px_#2F80ED]" />
+              <div className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#2F80ED] shadow-[0_0_6px_#2F80ED]" />
                 <span className="text-white/80">Renovações</span>
               </div>
             </div>
           </div>
 
           {/* Line Chart */}
-          <div className="h-56 sm:h-64 w-full">
+          <div className="flex-1 w-full min-h-[100px]">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={evolucaoDiariaData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <LineChart data={evolucaoDiariaData} margin={{ top: 5, right: 10, left: -25, bottom: -5 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1A2234" />
                 <XAxis 
                   dataKey="date" 
                   stroke="#4B5563" 
-                  tick={{ fill: '#6B7280', fontSize: 11, fontWeight: 500 }}
+                  tick={{ fill: '#6B7280', fontSize: 10, fontWeight: 500 }}
                   axisLine={{ stroke: '#1E2638' }}
                   tickLine={false}
                 />
@@ -530,7 +530,7 @@ export default function App() {
                   stroke="#4B5563" 
                   domain={[0, 200]}
                   ticks={[0, 50, 100, 150, 200]}
-                  tick={{ fill: '#6B7280', fontSize: 11, fontWeight: 500 }}
+                  tick={{ fill: '#6B7280', fontSize: 10, fontWeight: 500 }}
                   axisLine={false}
                   tickLine={false}
                 />
@@ -541,8 +541,8 @@ export default function App() {
                   name="Seguros Novos"
                   stroke="#00E396" 
                   strokeWidth={2.5}
-                  dot={{ r: 3, fill: '#00E396', strokeWidth: 0 }}
-                  activeDot={{ r: 5, fill: '#00E396', stroke: '#fff', strokeWidth: 2 }}
+                  dot={{ r: 2.5, fill: '#00E396', strokeWidth: 0 }}
+                  activeDot={{ r: 4.5, fill: '#00E396', stroke: '#fff', strokeWidth: 2 }}
                 />
                 <Line 
                   type="monotone" 
@@ -550,8 +550,8 @@ export default function App() {
                   name="Renovações"
                   stroke="#2F80ED" 
                   strokeWidth={2.5}
-                  dot={{ r: 3, fill: '#2F80ED', strokeWidth: 0 }}
-                  activeDot={{ r: 5, fill: '#2F80ED', stroke: '#fff', strokeWidth: 2 }}
+                  dot={{ r: 2.5, fill: '#2F80ED', strokeWidth: 0 }}
+                  activeDot={{ r: 4.5, fill: '#2F80ED', stroke: '#fff', strokeWidth: 2 }}
                 />
               </LineChart>
             </ResponsiveContainer>
