@@ -55,7 +55,7 @@ const segurosStatusData = {
 
 const donutStatusData = [
   { name: 'Seguros Novos', value: 1245, color: '#00E396' },
-  { name: 'Seguros em Renovação', value: 580, color: '#FFA502' },
+  { name: 'Seguros Renovados', value: 580, color: '#FFA502' },
 ];
 
 const produtosDataCol1 = [
@@ -368,14 +368,14 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Seguros em Renovação */}
+                {/* Seguros Renovados */}
                 <div className="flex items-center gap-2.5">
                   <div className="w-7 h-7 rounded-full bg-[#FFA502] flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(255,165,2,0.4)]">
-                    <RotateCcw className="w-3.5 h-3.5 text-black stroke-[2.5]" />
+                    <Check className="w-4 h-4 text-black stroke-[3]" />
                   </div>
                   <div>
                     <span className="text-[10px] font-bold text-white/70 block uppercase leading-tight">
-                      SEGUROS EM RENOVAÇÃO
+                      SEGUROS RENOVADOS
                     </span>
                     <div className="flex items-baseline gap-1.5">
                       <span className="text-lg lg:text-xl font-black text-white tracking-tight">
